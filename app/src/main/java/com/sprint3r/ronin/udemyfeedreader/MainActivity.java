@@ -19,19 +19,19 @@ public class MainActivity extends AppCompatActivity {
 
         textCourse = (TextView) findViewById(R.id.label_output_course);
 
-        IUdemyCourses client;
         retrofitApi retrofit;
 
         retrofit = new retrofitApi();
-        client = retrofit.getData();
+        Call<CoursesDetail> feed = retrofit.getData();
 
-        final Call<CoursesDetail> call =  client.getFeed();
-
-        call.enqueue(new Callback<CoursesDetail>() {
+        feed.enqueue(new Callback<CoursesDetail>() {
             @Override
             public void onResponse(Response<CoursesDetail> response) {
                 CoursesDetail feedUdemy = response.body();
-                textCourse.setText(feedUdemy.next);
+
+                for(int i =0; i <2; i++) {
+                    textCourse.setText(feedUdemy.results.get(i).getAsJsonObject().get("title").getAsString());
+                }
             }
 
             @Override

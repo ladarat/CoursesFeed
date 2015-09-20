@@ -13,19 +13,17 @@ import static org.junit.Assert.assertEquals;
 public class retrofitApiTest {
 
     private retrofitApi retrofitApi;
-    private IUdemyCourses client;
     private CoursesDetail feedUdemy;
+    private Call<CoursesDetail> feed;
 
 
     @Test
     public void testCallNextPageUrl() throws InterruptedException {
         final CountDownLatch ying = new CountDownLatch(1);
         retrofitApi = new retrofitApi();
-        client = retrofitApi.getData();
+        feed = retrofitApi.getData();
 
-        final Call<CoursesDetail> call =  client.getFeed();
-
-        call.enqueue(new Callback<CoursesDetail>() {
+        feed.enqueue(new Callback<CoursesDetail>() {
             @Override
             public void onResponse(Response<CoursesDetail> response) {
 
@@ -47,11 +45,9 @@ public class retrofitApiTest {
     public void testCallTitleResults() throws InterruptedException {
         final CountDownLatch ying = new CountDownLatch(1);
         retrofitApi = new retrofitApi();
-        client = retrofitApi.getData();
+        feed = retrofitApi.getData();
 
-        final Call<CoursesDetail> call =  client.getFeed();
-
-        call.enqueue(new Callback<CoursesDetail>() {
+        feed.enqueue(new Callback<CoursesDetail>() {
             @Override
             public void onResponse(Response<CoursesDetail> response) {
 
